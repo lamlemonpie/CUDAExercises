@@ -60,18 +60,13 @@ int main(int argc, char **argv){
   h_vec2 = malloc( n*sizeof(float) );
   h_out  = malloc( n*sizeof(float) );
   
-  string vec1,vec2,out;
-  vec1 = "Vector1:";
-  vec2 = "Vector2:";
-  out = "Salida:";
-
   genVector(&h_vec1,n); genVector(&h_vec2,n);
-  printVector(vec1,h_vec1,n);
-  printVector(vec2,h_vec2,n);
+  printVector("Vector1:",h_vec1,n);
+  printVector("Vector2:",h_vec2,n);
 
   vecAdd(&h_vec1,&h_vec2,&h_out,n);
 
-  printVector(out,h_out,n);
+  printVector("Salida:",h_out,n);
   
   return 0;
 }
