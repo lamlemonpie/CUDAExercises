@@ -1,9 +1,8 @@
-#import <cuda.h>
+#include <cuda.h>
 #include <stdio.h>
 #include <stdlib.h>
-#import <time.h>
+#include <time.h>
 
-#define RAND_MAX = 2147483647
 
 __global__ 
 void vecAddKernel(float *d_vec1, float *d_vec2, float *d_out, int n) {
@@ -36,13 +35,12 @@ void vecAdd(float *h_vec1, float *h_vec2, float *h_out, int n){
 
 }
 
-void genVector(float x[], int n) {
-  int i;
-  for (i = 0; i < n; i++)
-     x[i] = random()/((double) RAND_MAX);
+void genVector(float *x, int n) {
+  for (int i = 0; i < n; i++)
+     x[i] = random()/((float) RAND_MAX);
 }
 
-void printVector(char* title, float y[], double n) {
+void printVector(const char* title, float *y, double n) {
   printf("%s\n", title);
   for (int i = 0; i < n; i++)
      printf("%4.1f ", y[i]);
@@ -56,17 +54,21 @@ int main(int argc, char **argv){
   float *h_vec2 = NULL;
   float *h_out  = NULL;
 
-  h_vec1 = malloc( n*sizeof(float) );
-  h_vec2 = malloc( n*sizeof(float) );
-  h_out  = malloc( n*sizeof(float) );
+  h_vec1 = (float *) malloc( n*sizeof(float) );
+  h_vec2 = (float *) malloc( n*sizeof(float) );
+  h_out  = (float *) malloc( n*sizeof(float) );
   
-  genVector(&h_vec1,n); genVector(&h_vec2,n);
-  printVector("Vector1:",h_vec1,n);
-  printVector("Vector2:",h_vec2,n);
+  const char * v1 = "Vector1";
+  const	char * v2 = "Vector2";
+  const	char * out = "Salida";
 
-  vecAdd(&h_vec1,&h_vec2,&h_out,n);
+  genVector(h_vec1,n); genVector(h_vec2,n);
+  printVector(v1,h_vec1,n);
+  printVector(v2,h_vec2,n);
 
-  printVector("Salida:",h_out,n);
+  vecAdd(h_vec1,h_vec2,h_out,n);
+
+  printVector(out,h_out,n);
   
   return 0;
 }
