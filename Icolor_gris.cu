@@ -111,7 +111,7 @@ void color_grey(unsigned char* img_in , unsigned char* imagen_fin,int ancho,int 
 
 int main() {
 const char *arch_entrada = "perrito.png";
-    const char *arch_salida = "perritogray.png";
+    const char *arch_salida = "perritoblur.png";
     unsigned int width, height;
     vector<unsigned char> imagen_vector;
     int error = lodepng::decode(imagen_vector, width, height, arch_entrada);
@@ -129,11 +129,18 @@ const char *arch_entrada = "perrito.png";
 	       }
 	}
 	vector<unsigned char> png;
-	blurr(imagen_ini,imagen_fin,width,height);
+	
 
 //	color_grey(imagen_ini,imagen_fin,width,height);
+    // for(int i = 0; i < width*height; ++i) {
+    //     salida_final.push_back(imagen_fin[i]);
+    //     salida_final.push_back(imagen_fin[i]);
+    //     salida_final.push_back(imagen_fin[i]);
+    //     salida_final.push_back(255);
+    //     }
 	//blurr(imagen_ini,imagen_fin,width,height);
-	//Salida final
+    //Salida final
+    blurr(imagen_ini,imagen_fin,width,height);
     std::vector<unsigned char> salida_final;
     for(int i = 0; i < imagen_vector.size(); ++i) {
         salida_final.push_back(imagen_fin[i]);
@@ -141,6 +148,8 @@ const char *arch_entrada = "perrito.png";
             salida_final.push_back(255);
         }
     }
+
+    
     
     // Guardar datos
     error = lodepng::encode(arch_salida, salida_final, width, height);
