@@ -1,0 +1,5 @@
+Icolor_gris.cu(135): error: identifier "salida_final" is undefined
+
+Icolor_gris.cu(154): error: identifier "salida_final" is undefined
+
+2 errors detected in the compilation of "/tmp/tmpxft_00003602_00000000-8_Icolor_gris.cpp1.ii".
